@@ -1,25 +1,28 @@
-package ru.geekbrains.domain;
-
-import org.springframework.security.core.GrantedAuthority;
+package ru.geekbrains.persist.model;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class Role implements GrantedAuthority {
+@Table(name = "roles")
+public class Role {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(unique = true, nullable = false)
     private String name;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "users_shop_roles",
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_shop_id")
-    )
-    private List<User> users;
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<Role> users;
+
+    public Role() {
+    }
 
     public Long getId() {
         return id;
@@ -37,11 +40,11 @@ public class Role implements GrantedAuthority {
         this.name = name;
     }
 
-    public List<User> getUsers() {
+    public List<Role> getUsers() {
         return users;
     }
 
-    public void setUsers(List<User> users) {
+    public void setUsers(List<Role> users) {
         this.users = users;
     }
 
@@ -50,25 +53,11 @@ public class Role implements GrantedAuthority {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Role role = (Role) o;
-        return id.equals(role.id) && Objects.equals(name, role.name) && Objects.equals(users, role.users);
+        return Objects.equals(id, role.id) && Objects.equals(name, role.name) && Objects.equals(users, role.users);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, name, users);
-    }
-
-    @Override
-    public String toString() {
-        return "Role{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", users=" + users +
-                '}';
-    }
-
-    @Override
-    public String getAuthority() {
-        return name;
     }
 }
