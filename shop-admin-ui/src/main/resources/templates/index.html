@@ -1,28 +1,19 @@
 <!doctype html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head th:replace="fragments/head.html :: head"></head>
 
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.0.10/web-fonts-with-css/css/fontawesome-all.min.css}">
-    <link rel="stylesheet" th:href="@{/css/bootadmin.min.css}">
-    <link rel="stylesheet" th:href="@{/webjars/datatables/1.10.16/css/dataTables.bootstrap.min.css}">
-
-    <title>BootAdmin</title>
-</head>
 <body class="bg-light">
 
 <!--Строку сверху-->
 <!--Вставка панели сверху, как отдельного блока из html файла-->
-<div th:insert="~{up-bar.html:: #up-bar}"></div>
+<nav th:replace="fragments/up-bar.html :: up-bar"></nav>
 
 <!--Скрывающаяся панель слева-->
 <div class="d-flex">
 
 <!--    Вставка панели слева, как отдельного блока из html файла-->
-    <div th:insert="~{left-menu.html:: #left_menu}"></div>
+    <div th:replace="fragments/sidebar.html :: sidebar"></div>
 
     <div class="content p-4">
         <h2 class="mb-4">Blank/Starter</h2>
@@ -35,10 +26,7 @@
     </div>
 </div>
 
-<script th:src="@{/webjars/jquery/3.3.1/jquery.js}"></script>
-<script th:src="@{/webjars/bootstrap/4.4.1/js/bootstrap.bundle.min.js}"></script>
-<script th:src="@{/webjars/datatables/1.10.16/js/dataTables.bootstrap.min.js}"></script>
-<script th:src="@{/js/bootadmin.min.js}"></script>
+<footer th:replace="fragments/footer.html :: add-scripts"></footer>
 
 </body>
 </html>

@@ -1,6 +1,6 @@
 package ru.geekbrains.service;
 
-import ru.geekbrains.represent.UserRepresent;
+import ru.geekbrains.controllers.represent.UserRepresent;
 
 import java.util.List;
 import java.util.Optional;

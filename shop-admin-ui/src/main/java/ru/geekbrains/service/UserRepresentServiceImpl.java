@@ -2,14 +2,16 @@ package ru.geekbrains.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 import ru.geekbrains.persist.model.User;
 import ru.geekbrains.persist.repo.UserRepository;
-import ru.geekbrains.represent.UserRepresent;
+import ru.geekbrains.controllers.represent.UserRepresent;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Service
 public class UserRepresentServiceImpl implements UserRepresentService{
 
     private final UserRepository userRepository;

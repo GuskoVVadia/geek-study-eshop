@@ -26,7 +26,6 @@
         <module>shop-database</module>
         <module>shop-admin-ui</module>
         <module>shop-ui</module>
-        <module>shop-database</module>
     </modules>
 
 
