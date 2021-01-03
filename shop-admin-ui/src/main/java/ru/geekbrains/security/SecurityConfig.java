@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private PasswordEncoder passwordEncoder;
+
     private UserDetailsService userDetailsService;
 
     @Autowired
@@ -43,19 +44,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**").authenticated()
                 .and()
                 .formLogin()
-                    .loginPage("/login")
-                    .loginProcessingUrl("/authenticateTheUser")
+                .loginPage("/login")
+                .loginProcessingUrl("/authenticateTheUser")
                 .permitAll()
                 .and()
-                    .logout()
-                    .logoutSuccessUrl("/login")
+                .logout()
+                .logoutSuccessUrl("/login")
                 .permitAll();
     }
 
-    public DaoAuthenticationProvider authenticationProvider(){
+    public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
-        auth.setPasswordEncoder(passwordEncoder);
         auth.setUserDetailsService(userDetailsService);
+        auth.setPasswordEncoder(passwordEncoder);
         return auth;
     }
 }

@@ -1,27 +1,30 @@
 package ru.geekbrains.persist.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "roles")
-public class Role {
+public class Role implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(name = "name", unique = true, nullable = false)
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "users_roles",
-            joinColumns = @JoinColumn(name = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<Role> users;
+    @ManyToMany(mappedBy = "roles")
+    private List<User> users;
 
     public Role() {
+    }
+
+    public Role(String name) {
+        this.name = name;
     }
 
     public Long getId() {
@@ -40,11 +43,11 @@ public class Role {
         this.name = name;
     }
 
-    public List<Role> getUsers() {
+    public List<User> getUsers() {
         return users;
     }
 
-    public void setUsers(List<Role> users) {
+    public void setUsers(List<User> users) {
         this.users = users;
     }
 
@@ -53,11 +56,11 @@ public class Role {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Role role = (Role) o;
-        return Objects.equals(id, role.id) && Objects.equals(name, role.name) && Objects.equals(users, role.users);
+        return name.equals(role.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, users);
+        return Objects.hash(name);
     }
 }

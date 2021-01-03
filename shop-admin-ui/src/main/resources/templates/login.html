@@ -1,7 +1,15 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head.html :: head"></head>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.0.10/web-fonts-with-css/css/fontawesome-all.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootadmin.min.css}">
+
+    <title>Login | BootAdmin</title>
+</head>
 <body class="bg-light">
 
 <div class="container h-100">
@@ -47,7 +55,9 @@
     </div>
 </div>
 
-<footer th:replace="fragments/footer.html :: add-scripts"></footer>
+<script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.4.1/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/bootadmin.min.js}"></script>
 
 </body>
 </html>

@@ -16,16 +16,17 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+
     <properties>
-        <java.version>1.8</java.version>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
     </properties>
 
     <modules>
         <module>shop-database</module>
         <module>shop-admin-ui</module>
         <module>shop-ui</module>
+        <module>shop-picture-service</module>
     </modules>
 
 

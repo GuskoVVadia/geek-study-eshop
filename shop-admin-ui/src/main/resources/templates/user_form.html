@@ -2,14 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<head th:replace="fragments/head.html :: head"></head>
+<head th:replace="fragments/header :: head"></head>
 
 <body class="bg-light">
 
-<nav th:replace="fragments/up-bar.html :: up-bar"></nav>
+<div th:replace="fragments/header :: header"></div>
 
 <div class="d-flex">
-    <div th:replace="fragments/sidebar.html :: sidebar"></div>
+    <div th:replace="fragments/sidebar :: sidebar"></div>
 
     <div class="content p-4">
         <h2 class="mb-4" th:if="${edit}" >Edit user</h2>
@@ -21,7 +21,7 @@
                     <input th:type="hidden" th:field="*{id}">
                     <div class="form-group">
                         <label for="username">User name</label>
-                        <input th:field="*{name}" type="text" class="form-control" id="username" placeholder="Enter user name" required>
+                        <input th:field="*{username}" type="text" class="form-control" id="username" placeholder="Enter user name" required>
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
