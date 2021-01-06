@@ -1,4 +1,4 @@
 package ru.geekbrains.error;
 
-public class ServerInternalException extends RuntimeException{
+public class ServerInternalException extends RuntimeException {
 }

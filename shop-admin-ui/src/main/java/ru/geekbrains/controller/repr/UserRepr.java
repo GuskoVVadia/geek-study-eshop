@@ -1,32 +1,35 @@
-package ru.geekbrains.controllers.represent;
+package ru.geekbrains.controller.repr;
 
 import ru.geekbrains.persist.model.Role;
 import ru.geekbrains.persist.model.User;
 
 import javax.validation.constraints.NotEmpty;
-import java.util.List;
+import java.util.Set;
 
-public class UserRepresent{
+public class UserRepr {
 
     private Long id;
 
     @NotEmpty
-    private String name;
+    private String username;
 
     @NotEmpty
     private String password;
 
-    private String email;
     private String firstName;
-    private String lastName;
-    private List<Role> roles;
 
-    public UserRepresent() {
+    private String lastName;
+
+    private String email;
+
+    private Set<Role> roles;
+
+    public UserRepr() {
     }
 
-    public UserRepresent(User user) {
+    public UserRepr(User user) {
         this.id = user.getId();
-        this.name = user.getName();
+        this.username = user.getName();
         this.password = user.getPassword();
         this.email = user.getEmail();
         this.firstName = user.getFirstName();
@@ -42,12 +45,12 @@ public class UserRepresent{
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -56,14 +59,6 @@ public class UserRepresent{
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getFirstName() {
@@ -82,24 +77,28 @@ public class UserRepresent{
         this.lastName = lastName;
     }
 
-    public List<Role> getRoles() {
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 
     @Override
     public String toString() {
-        return "UserRepresent{" +
+        return "UserRepr{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", secondName='" + lastName + '\'' +
-                ", roles=" + roles +
                 '}';
     }
 }

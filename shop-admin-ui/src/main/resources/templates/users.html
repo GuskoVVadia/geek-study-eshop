@@ -2,14 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<head th:replace="fragments/head.html :: head"></head>
+<head th:replace="fragments/header :: head"></head>
 
 <body class="bg-light">
 
-<nav th:replace="fragments/up-bar.html :: up-bar"></nav>
+<div th:replace="fragments/header :: header"></div>
 
 <div class="d-flex">
-    <div th:replace="fragments/sidebar.html :: sidebar"></div>
+    <div th:replace="fragments/sidebar :: sidebar"></div>
 
     <div class="content p-4">
         <h2 class="mb-4">User list</h2>
@@ -33,7 +33,7 @@
                     <tbody>
                     <tr th:each="usr : ${users}">
                         <td th:text="${usr.id}"></td>
-                        <td th:text="${usr.name}">Admin</td>
+                        <td th:text="${usr.username}">Admin</td>
                         <td th:text="${usr.email}"></td>
                         <td>
                             <a th:href="@{/user/{id}/edit(id=${usr.id})}" class="btn btn-icon btn-pill btn-primary" data-toggle="tooltip" title="Edit">
@@ -54,7 +54,8 @@
     </div>
 </div>
 
-<footer th:replace="fragments/footer.html :: add-scripts"></footer>
+<script th:replace="fragments/footer :: scripts"></script>
+<script th:src="@{/js/datatables.min.js}"></script>
 <script>
     $(document).ready(function () {
         $('#users').DataTable();
