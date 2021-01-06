@@ -15,11 +15,26 @@ public class PictureData {
     @Column(name = "data", length = 33554430)
     private byte[] data;
 
+    @Column(name = "file_name")
+    private String fileName;
+
     public PictureData() {
     }
 
     public PictureData(byte[] data) {
         this.data = data;
+    }
+
+    public PictureData(String fileName){
+        this.fileName = fileName;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     public Long getId() {

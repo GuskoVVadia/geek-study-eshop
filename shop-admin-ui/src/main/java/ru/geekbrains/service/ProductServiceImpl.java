@@ -60,11 +60,13 @@ public class ProductServiceImpl implements ProductService, Serializable {
         product.setBrand(productRepr.getBrand());
         product.setPrice(productRepr.getPrice());
 
-
-        if (productRepr.getNewPictures() != null) {
+        if (!productRepr.getNewPictures()[0].getResource().getFilename().isEmpty()) {
             for (MultipartFile newPicture : productRepr.getNewPictures()) {
                 logger.info("Product {} file {} size {} contentType {}", productRepr.getId(),
                         newPicture.getOriginalFilename(), newPicture.getSize(), newPicture.getContentType());
+
+                System.err.println("name = " + productRepr.getNewPictures()[0].getResource().getFilename());
+                System.err.println("file name is null? " + productRepr.getNewPictures()[0].getResource().getFilename().isEmpty());
 
                 if (product.getPictures() == null) {
                     product.setPictures(new ArrayList<>());
