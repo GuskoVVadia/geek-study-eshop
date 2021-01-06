@@ -1,6 +1,7 @@
 package ru.geekbrains.persist.model;
 
 import javax.persistence.*;
+import java.nio.file.FileSystems;
 
 @Entity
 @Table(name = "pictures_data")

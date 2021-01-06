@@ -8,7 +8,6 @@ import ru.geekbrains.persist.repo.PictureRepository;
 
 import java.util.Optional;
 
-@Service
 public class PictureServiceBlobImpl implements PictureService{
 
     private final PictureRepository pictureRepository;
