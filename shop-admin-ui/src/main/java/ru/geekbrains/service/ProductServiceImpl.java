@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.geekbrains.controller.repr.ProductRepr;
 import ru.geekbrains.error.NotFoundException;
 import ru.geekbrains.persist.model.Picture;
+import ru.geekbrains.persist.model.PictureData;
 import ru.geekbrains.persist.model.Product;
 import ru.geekbrains.persist.repo.ProductRepository;
 
@@ -48,6 +49,8 @@ public class ProductServiceImpl implements ProductService, Serializable {
 
     @Override
     public void deleteById(Long id) {
+
+        this.productRepository.findById(id).get().getPictures().forEach(pictureService::deletePictureData);
         this.productRepository.deleteById(id);
     }
 
@@ -65,6 +68,7 @@ public class ProductServiceImpl implements ProductService, Serializable {
                 logger.info("Product {} file {} size {} contentType {}", productRepr.getId(),
                         newPicture.getOriginalFilename(), newPicture.getSize(), newPicture.getContentType());
 
+                //TODO убрать serr
                 System.err.println("name = " + productRepr.getNewPictures()[0].getResource().getFilename());
                 System.err.println("file name is null? " + productRepr.getNewPictures()[0].getResource().getFilename().isEmpty());
 

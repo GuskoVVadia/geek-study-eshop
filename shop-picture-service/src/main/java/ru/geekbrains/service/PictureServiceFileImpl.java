@@ -1,3 +1,9 @@
+/**
+ * Последние изменения от 10.01
+ * 1. filePathFromDirectory - становиться final.
+ * 2. Добавлен метод вычисления пути и удаления его с диска.
+ */
+
 package ru.geekbrains.service;
 
 import org.slf4j.Logger;
@@ -20,18 +26,13 @@ import java.util.UUID;
 public class PictureServiceFileImpl implements PictureService{
 
     private static final Logger logger = LoggerFactory.getLogger(PictureServiceFileImpl.class);
-    private static Path filePathFromDirectory;
+    private static final Path filePathFromDirectory = Paths.get(System.getProperty("user.dir"), "pictures");
 
     private final PictureRepository pictureRepository;
 
-    {
-        String filePath = System.getProperty("user.dir");
-        filePathFromDirectory = Paths.get(filePath, "pictures");
-        System.err.println(filePath);
-
+    static {
         if (Files.notExists(filePathFromDirectory)){
             try {
-                logger.info("create directory " + filePathFromDirectory);
                 Files.createDirectories(filePathFromDirectory);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -74,5 +75,32 @@ public class PictureServiceFileImpl implements PictureService{
             throw new RuntimeException(e);
         }
         return new PictureData(fileName);
+    }
+
+    /**
+     * Удаление файлов на диске.
+     * В поиске файла участвует постоянная filePathFromDirectory, которая опеределяется при запуске данного сервиса.
+     * В случае ошибки вывод запись в log, а также кидает ошибку Runtime!
+     * @param picture передача объекта, который в любом случае содержит объект PictureData, который
+     *                в свою очередь содержит имя файла.
+     */
+    @Override
+    public void deletePictureData(Picture picture) {
+        this.pictureRepository.findById(picture.getId()).stream()
+                .map(Picture::getPictureData)
+                .map(PictureData::getFileName)
+                .forEach(s -> {
+                    try {
+                        Files.deleteIfExists(Paths.get(filePathFromDirectory.toString(), s));
+                    } catch (IOException e) {
+                        logger.error("file not found {} ,{}", s, e.getMessage());
+                        throw new RuntimeException(e);
+                    }
+                });
+    }
+
+    @Override
+    public Picture getPictureById(Long id) {
+        return this.pictureRepository.findById(id).orElse(null);
     }
 }

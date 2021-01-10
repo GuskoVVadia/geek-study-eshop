@@ -14,32 +14,28 @@
     </changeSet>
 
     <include file="v-1.0/db.changelog-20201223-174241814.xml" relativeToChangelogFile="true"/>
-
-    <changeSet id="10" author="ve4er_leta">
+    <changeSet id="100" author="ve4er_leta">
         <tagDatabase tag="v-1.0"/>
     </changeSet>
 
     <include file="v-2.0/db.changelog-20201223-182548729.xml" relativeToChangelogFile="true"/>
-
-    <changeSet id="20" author="ve4er_leta">
+    <changeSet id="200" author="ve4er_leta">
         <tagDatabase tag="v-2.0"/>
     </changeSet>
 
     <include file="v-3.0/db.changelog-20201228-160232142.xml" relativeToChangelogFile="true"/>
-
-    <changeSet id="30" author="ve4er_leta">
+    <changeSet id="300" author="ve4er_leta">
         <tagDatabase tag="v-3.0"/>
     </changeSet>
 
     <include file="v-4.0/db.changelog-20201228-175007283.xml" relativeToChangelogFile="true"/>
-
-    <changeSet id="40" author="ve4er_leta">
+    <changeSet id="400" author="ve4er_leta">
         <tagDatabase tag="v-4.0"/>
     </changeSet>
 
-    <include file="v-5.0/db.changelog-20210106-043133348.xml" relativeToChangelogFile="true"/>
-
-    <changeSet id="50" author="ve4er_leta">
-        <tagDatabase tag="v-4.0"/>
+    <include file="v-5.0/db.changelog-20210109-230435682.xml" relativeToChangelogFile="true"/>
+    <changeSet id="500" author="ve4er_leta">
+        <tagDatabase tag="v-5.0"/>
     </changeSet>
+
 </databaseChangeLog>

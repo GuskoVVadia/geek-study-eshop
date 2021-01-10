@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.geekbrains.controller.repr.ProductRepr;
 import ru.geekbrains.error.NotFoundException;
+import ru.geekbrains.persist.model.Product;
 import ru.geekbrains.persist.repo.BrandRepository;
 import ru.geekbrains.persist.repo.CategoryRepository;
+import ru.geekbrains.persist.repo.PictureRepository;
+import ru.geekbrains.service.PictureService;
 import ru.geekbrains.service.ProductService;
 
 
@@ -24,13 +27,17 @@ public class ProductsController {
     private final ProductService productService;
     private final CategoryRepository categoryRepository;
     private final BrandRepository brandRepository;
+    private final PictureService pictureService;
+    private final PictureRepository pictureRepository;
 
     @Autowired
     public ProductsController(ProductService productService, CategoryRepository categoryRepository,
-                              BrandRepository brandRepository) {
+                              BrandRepository brandRepository, PictureService pictureService, PictureRepository pictureRepository) {
         this.productService = productService;
         this.categoryRepository = categoryRepository;
         this.brandRepository = brandRepository;
+        this.pictureService = pictureService;
+        this.pictureRepository = pictureRepository;
     }
 
     @GetMapping("/products")
@@ -54,6 +61,29 @@ public class ProductsController {
     public String adminDeleteProduct(Model model, @PathVariable("id") Long id) {
         model.addAttribute("activePage", "Products");
         productService.deleteById(id);
+        return "redirect:/products";
+    }
+
+    @DeleteMapping("/product/pic/{pictureId}/delete")
+    public String adminDeletePictureProduct(Model model, @PathVariable("pictureId") Long pictureId) {
+
+        Product product = this.pictureService.getPictureById(pictureId).getProduct();
+        this.pictureService.deletePictureData(this.pictureService.getPictureById(pictureId));
+        this.pictureRepository.deleteById();
+
+
+        System.out.println("--------------------------------------------------------------------------------------------");
+        System.out.println("--------------------------------------------------------------------------------------------");
+        System.out.println("--------------------------------------------------------------------------------------------");
+        System.out.println("--------------------------------------------------------------------------------------------");
+        System.out.println("--------------------------------------------------------------------------------------------");
+        System.out.println("--------------------------------------------------------------------------------------------");
+        System.out.println("--------------------------------------------------------------------------------------------");
+        System.out.println("--------------------------------------------------------------------------------------------");
+        System.out.println("--------------------------------------------------------------------------------------------");
+        System.out.println("--------------------------------------------------------------------------------------------");
+        System.out.println("--------------------------------------------------------------------------------------------");
+        System.out.println("--------------------------------------------------------------------------------------------");
         return "redirect:/products";
     }
 
