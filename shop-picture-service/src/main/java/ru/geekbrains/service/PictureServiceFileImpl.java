@@ -1,7 +1,13 @@
 /**
- * Последние изменения от 10.01
+ * Изменения от 10.01
  * 1. filePathFromDirectory - становиться final.
  * 2. Добавлен метод вычисления пути и удаления его с диска.
+ * 3. Поле filePathFromDirectory теперь преобразовано в статическую констунту, потокобезопасную.
+ *
+ * Изменения от 11.01
+ * 1. Метод deletePictureData теперь работает корректно.
+ * 2. Метод deletePictureById добавлен. Удаление Picture из БД.
+ *
  */
 
 package ru.geekbrains.service;
@@ -77,30 +83,33 @@ public class PictureServiceFileImpl implements PictureService{
         return new PictureData(fileName);
     }
 
-    /**
+    /** Изменения от 11.01 - переписан метод для корректной работы, убран лишний код
      * Удаление файлов на диске.
-     * В поиске файла участвует постоянная filePathFromDirectory, которая опеределяется при запуске данного сервиса.
      * В случае ошибки вывод запись в log, а также кидает ошибку Runtime!
      * @param picture передача объекта, который в любом случае содержит объект PictureData, который
      *                в свою очередь содержит имя файла.
      */
     @Override
     public void deletePictureData(Picture picture) {
-        this.pictureRepository.findById(picture.getId()).stream()
-                .map(Picture::getPictureData)
-                .map(PictureData::getFileName)
-                .forEach(s -> {
-                    try {
-                        Files.deleteIfExists(Paths.get(filePathFromDirectory.toString(), s));
-                    } catch (IOException e) {
-                        logger.error("file not found {} ,{}", s, e.getMessage());
+        try {
+            Files.deleteIfExists(Paths.get(filePathFromDirectory.toString(), picture.getPictureData().getFileName()));
+        } catch (IOException e) {
+            logger.error("file not found {}", e.getMessage());
                         throw new RuntimeException(e);
-                    }
-                });
+        }
     }
 
     @Override
     public Picture getPictureById(Long id) {
         return this.pictureRepository.findById(id).orElse(null);
+    }
+
+    /**
+     * Метод удаления объекта из БД по его id
+     * @param id непосредственно id объекта Picture
+     */
+    @Override
+    public void deletePictureById(Long id) {
+        this.pictureRepository.deleteById(id);
     }
 }
