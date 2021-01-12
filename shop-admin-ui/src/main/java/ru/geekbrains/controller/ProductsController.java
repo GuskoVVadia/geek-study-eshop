@@ -1,3 +1,11 @@
+/**
+ * Редакция от 11.01.2021
+ * 1. Добавление метода adminDeletePictureProduct, задача которого получить id изображения и модель,
+ * произвести манипуляци по удалению этого изображение, передать модели новые атрибуты и передать ссылку на
+ * представление.
+ * 2. Добавлено новое поле - pictureService, для манипуляций с изображением.
+ */
+
 package ru.geekbrains.controller;
 
 import org.slf4j.Logger;
@@ -12,8 +20,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.geekbrains.controller.repr.ProductRepr;
 import ru.geekbrains.error.NotFoundException;
+import ru.geekbrains.persist.model.Picture;
+import ru.geekbrains.persist.model.Product;
 import ru.geekbrains.persist.repo.BrandRepository;
 import ru.geekbrains.persist.repo.CategoryRepository;
+import ru.geekbrains.service.PictureService;
 import ru.geekbrains.service.ProductService;
 
 
@@ -24,13 +35,15 @@ public class ProductsController {
     private final ProductService productService;
     private final CategoryRepository categoryRepository;
     private final BrandRepository brandRepository;
+    private final PictureService pictureService;
 
     @Autowired
     public ProductsController(ProductService productService, CategoryRepository categoryRepository,
-                              BrandRepository brandRepository) {
+                              BrandRepository brandRepository, PictureService pictureService) {
         this.productService = productService;
         this.categoryRepository = categoryRepository;
         this.brandRepository = brandRepository;
+        this.pictureService = pictureService;
     }
 
     @GetMapping("/products")
@@ -55,6 +68,35 @@ public class ProductsController {
         model.addAttribute("activePage", "Products");
         productService.deleteById(id);
         return "redirect:/products";
+    }
+
+    /**
+     * Метод удаления изображения продукта по id изображения
+     * @param model соответственно модель MVC
+     * @param pictureId id изображения продукта
+     * @return ссылку на соответсвующее представление
+     */
+    @DeleteMapping("/product/pic/{pictureId}/delete")
+    public String adminDeletePictureProduct(Model model, @PathVariable("pictureId") Long pictureId) {
+
+        //находим объект изображения, привязанный к продукту
+        Picture picture = this.pictureService.getPictureById(pictureId);
+
+        //получаем продукт по id фото
+        Product product = picture.getProduct();
+
+        //находим файл-изображение и удаляем его с диска
+        this.pictureService.deletePictureData(picture);
+
+        //теперь необходимо удалить из бд каскадно
+        this.pictureService.deletePictureById(pictureId);
+
+        model.addAttribute("edit", true);
+        model.addAttribute("activePage", "Products");
+        model.addAttribute("product", productService.findById(product.getId()).orElseThrow(NotFoundException::new));
+        model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("brands", brandRepository.findAll());
+        return "product_form";
     }
 
     @GetMapping("/product/create")

@@ -12,18 +12,10 @@ public class PictureData {
     @Column(name = "id")
     private Long id;
 
-    @Lob
-    @Column(name = "data", length = 33554430)
-    private byte[] data;
-
     @Column(name = "file_name")
     private String fileName;
 
     public PictureData() {
-    }
-
-    public PictureData(byte[] data) {
-        this.data = data;
     }
 
     public PictureData(String fileName){
@@ -46,11 +38,5 @@ public class PictureData {
         this.id = id;
     }
 
-    public byte[] getData() {
-        return data;
-    }
 
-    public void setData(byte[] data) {
-        this.data = data;
-    }
 }
