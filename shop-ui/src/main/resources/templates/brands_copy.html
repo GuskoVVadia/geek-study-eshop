@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="fragments/header :: head"></head>
+
+<body class="bg-light">
+
+<nav th:replace="fragments/header :: header"></nav>
+
+<div class="d-flex">
+    <div th:replace="fragments/sidebar :: sidebar"></div>
+
+    <div class="content p-4">
+        <div class="text-center mb-4">
+            <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- Responsive -->
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4097235499795154" data-ad-slot="5211442851" data-ad-format="auto"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <h2 class="mb-4">Brands</h2>
+
+        <div class="card mb-4" th:each="bran : ${listBrands}">
+
+            <div class="card card-group"> <!-- fluid begin-->
+
+                <div class="card-header bg-white font-weight-bold">
+                    <span th:text="${bran.name}"></span>
+                </div>
+                <div class="card-body" th:each="prod : ${bran.getProducts()}">
+                    <!--                <div class="row text-center">-->
+                    <div class="col-md border-right py-4">
+                    <span class="fa-stack fa-4x mb-4">
+                        <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa fa-rocket fa-stack-1x fa-inverse"></i>
+                    </span>
+                        <h2>
+                            <span th:text="${prod.name}"></span>
+                        </h2>
+                        <h5 class="text-secondary">Product License</h5>
+                        <a th:href="@{/product/{id}/edit(id=${prod.id})}" class="btn btn-lg btn-primary btn-pill" data-toggle="tooltip" title="Edit">about</a>
+                        <a href="#" class="btn btn-lg btn-primary btn-pill">add</a>
+                    </div>
+
+                </div> <!-- fluid end-->
+                <!--                </div>-->
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+</div>
+
+<script th:replace="fragments/footer :: scripts"></script>
+<script src="https://bootadmin.net/js/datatables.min.js"></script>
+
+</body>
+</html>

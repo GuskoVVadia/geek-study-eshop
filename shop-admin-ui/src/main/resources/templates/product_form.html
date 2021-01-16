@@ -69,13 +69,6 @@
                 <div class="card" th:each="pict : ${product.pictures}">
                     <div class="card-header">
 
-<!--                        <form th:action="{/pic/{pictureId}/delete(pictureId=${pict.id})}" th:method="delete"-->
-<!--                              class="d-inline">-->
-<!--                            <button type="button" class="btn btn-danger">Danger</button>-->
-<!--                        </form>-->
-
-
-
                         <form th:action="@{/product/pic/{pictureId}/delete(pictureId=${pict.id})}" th:method="delete"
                               class="d-inline">
                             <button class="btn btn-icon btn-pill btn-danger" data-toggle="tooltip" title="Delete">
