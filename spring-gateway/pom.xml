@@ -9,20 +9,24 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>spring-cloud-config</artifactId>
-    <name>spring-cloud-config</name>
-    <description>Module configuration spring-cloud</description>
+    <artifactId>spring-gateway</artifactId>
+    <name>spring-gateway</name>
+    <description>GateWay</description>
 
     <properties>
         <java.version>11</java.version>
     </properties>
 
     <dependencies>
+
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-config-server</artifactId>
+            <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -38,7 +42,5 @@
             </plugin>
         </plugins>
     </build>
-
-
 
 </project>
