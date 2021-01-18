@@ -45,7 +45,7 @@
 
                             <div class="card-img" th:each="pict : ${product.pictures}">
 
-                                    <img class="card-img-bottom" th:src="@{/picture/{pictureId}(pictureId=${pict.id})}"
+                                    <img class="card-img-bottom" th:src="@{{pictureServiceUrl}/picture/{pictureId}(pictureId=${pict.id}, pictureServiceUrl={pictureServiceUrl})}"
                                          width="40%"/>
                             </div>
 
