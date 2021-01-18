@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="fragments/header :: head"></head>
+
+<body class="bg-light">
+
+<div th:replace="fragments/header :: header"></div>
+
+<div class="d-flex">
+    <div th:replace="fragments/sidebar :: sidebar"></div>
+
+    <div class="content p-4">
+        <h2 class="mb-4">
+            <span th:text="${product.name}"></span>
+        </h2>
+
+        <div class="card mb-4">
+
+            <div class="card-header">
+
+                <table id="products" cellspacing="0" width="100%">
+                    <thead>
+                        <th>Name</th>
+                        <th>Categories</th>
+                        <th>Brand</th>
+                        <th>Price</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td th:text="${product.name}"></td>
+                            <td th:text="${product.category.name}"></td>
+                            <td th:text="${product.brand.name}"></td>
+                            <td th:text="${product.price}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+                <div class="card-body">
+                    <div class="container-fluid mb-4">
+
+                        <div class="card-columns" style="column-count: 5">
+
+                            <div class="card-img" th:each="pict : ${product.pictures}">
+
+                                    <img class="card-img-bottom" th:src="@{/picture/{pictureId}(pictureId=${pict.id})}"
+                                         width="40%"/>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    </div>
+</div>
+
+</body>
+</html>
